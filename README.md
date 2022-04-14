@@ -1,27 +1,42 @@
-# Vue 3 + Typescript + Vite
+# Vue 3 + Typescript + Vite 模板搭建
 
-This template should help get you started developing with Vue 3 and Typescript in Vite.
+### 搭建 Vite +Vue 项目
 
-## Recommended IDE Setup
+参考[vite 官方文档教程](https://cn.vitejs.dev/guide/#scaffolding-your-first-vite-project)
 
-[VSCode](https://code.visualstudio.com/) + [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur). Make sure to enable `vetur.experimental.templateInterpolationService` in settings!
+```
+# npm 6.x
+npm create vite@latest my-vue-app --template vue
 
-### If Using `<script setup>`
+# npm 7+, extra double-dash is needed:
+npm create vite@latest my-vue-app -- --template vue
 
-[`<script setup>`](https://github.com/vuejs/rfcs/pull/227) is a feature that is currently in RFC stage. To get proper IDE support for the syntax, use [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) instead of Vetur (and disable Vetur).
+# yarn
+yarn create vite my-vue-app --template vue
 
-## Type Support For `.vue` Imports in TS
+# pnpm
+pnpm create vite my-vue-app -- --template vue
+```
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can use the following:
+这里我选用yarn命令创建，用npm创建的话不会有相应库可供选择安装，在可选项中我选择vue-ts
 
-### If Using Volar
+### Eslint支持
 
-Run `Volar: Switch TS Plugin on/off` from VSCode command palette.
+[eslint官方文档](https://eslint.org/docs/user-guide/getting-started)
 
-### If Using Vetur
+[typeScript插件](https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/eslint-plugin)  
 
-1. Install and add `@vuedx/typescript-plugin-vue` to the [plugins section](https://www.typescriptlang.org/tsconfig#plugins) in `tsconfig.json`
-2. Delete `src/shims-vue.d.ts` as it is no longer needed to provide module info to Typescript
-3. Open `src/main.ts` in VSCode
-4. Open the VSCode command palette
-5. Search and run "Select TypeScript version" -> "Use workspace version"
+```
+# eslint 安装
+yarn add eslint --dev
+
+# eslint 插件相关安装
+yarn add eslint-plugin-vue --dev
+yarn add @typescript-eslint/eslint-plugin --dev
+yarn add eslint-plugin-prettier --dev
+
+# typescript parser
+yarn add @typescript-eslint/parser --dev
+
+```
+
