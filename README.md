@@ -352,5 +352,102 @@ dist
  yarn prettier 
 ```
 
-未完待续。。。
+### 配置文件引入别名alias
 
+修改 `vite.config.ts` 文件配置,注意__dirname前面是两个下划线
+
+```
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import path from 'path'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [vue()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
+  },
+})
+
+```
+
+ 修改 `tsconfig.json` 
+
+```
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "lib": ["esnext", "dom"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*":["src/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+}
+```
+
+### 配置 css 预处理器 scss
+
+```
+yarn add dart-sass --dev
+yarn add sass --dev
+```
+
+#### 配置全局 scss 样式文件
+
+在 `src/assets` 下新增 `style` 文件夹，用于存放全局样式文件
+
+新建 `main.scss`, 设置一个用于测试的颜色`变量` :
+
+```
+$test-color: red;
+```
+
+ 如何将这个全局样式文件`全局注入`到项目中呢？配置 `Vite` 即可
+
+在vite.config.ts文件中加入css项
+
+```
+css:{
+    preprocessorOptions:{
+      scss:{
+        additionalData:'@import "@/assets/style/main.scss";'
+      }
+    }
+  },
+```
+
+#### VsCode ctr+s自动保存所有改动的文件
+
+写到这里我突然发现了一个我知道了很久确一直没有解决的问题，就是每次修改文件的时候可能忘了保存，当在其他页面保存了的时候会发现报错，有时候半天都不知道是哪里出问题，每次因为这个都要化很多宝贵的时间，很悲催的此时此刻我遇到了，开始解决。
+
+1、在vscode中搜索安装插件 [multi-command](https://marketplace.visualstudio.com/items?itemName=ryuta46.multi-command)  
+
+2、在项目根目录下创建 `.vscode` 文件，当然你也可以在vscode的配置文件中直接配置，随你喜欢
+
+3、在 `.vscode` 文件下创建 `settings.json`。
+
+4、在 `settings.json` 中拷入如下配置：
+
+```
+{
+  "multiCommand.commands": [
+    {
+      "command": "workbench.action.files.save",
+      "sequence": ["workbench.action.files.saveAll"]
+    }
+  ]
+}
+```
+
+好了，现在不用担心自动保存的事情了

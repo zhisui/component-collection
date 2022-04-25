@@ -1,0 +1,8 @@
+{
+  "multiCommand.commands": [
+    {
+      "command": "workbench.action.files.save",
+      "sequence": ["workbench.action.files.saveAll"]
+    }
+  ]
+}
