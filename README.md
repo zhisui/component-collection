@@ -451,3 +451,48 @@ css:{
 ```
 
 好了，现在不用担心自动保存的事情了
+
+### 配置路由
+
+```
+yarn add vue-router@4
+```
+
+ 在 `src` 文件下新增router.ts文件,写入以下内容，如果路由比较多的话建议建一个文件夹
+
+```
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+
+const routes: RouteRecordRaw[] = [
+  {
+    path: '/',
+    name: 'Login',
+    component: () => import('@/pages/login/Login.vue'), // 注意这里要带上 文件后缀.vue
+  },
+]
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+})
+
+export default router
+
+```
+
+ 修改入口文件 `mian.ts` ，全局引入router
+
+```
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from '@/router/index'
+
+const app = createApp(App)
+app.use(router)
+createApp(App).mount('#app')
+
+```
+
+更多配置可看[官方文档](https://router.vuejs.org/zh/introduction.html)
+
+### 封装axios
