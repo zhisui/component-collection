@@ -10,10 +10,14 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "axios": "^0.27.2",
+    "nprogress": "^0.2.0",
+    "pinia": "^2.0.0-rc.10",
     "vue": "^3.0.5",
     "vue-router": "4"
   },
   "devDependencies": {
+    "@types/nprogress": "^0.2.0",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
     "@vitejs/plugin-vue": "^1.1.5",
