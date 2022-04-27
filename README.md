@@ -496,3 +496,167 @@ createApp(App).mount('#app')
 更多配置可看[官方文档](https://router.vuejs.org/zh/introduction.html)
 
 ### 封装axios
+
+[axios封装相关库](https://github.com/attojs/vue-request)
+
+```
+# 安装 axios
+yarn add axios
+# 安装 nprogress 用于请求 loading
+# 也可以根据项目需求自定义其它 loading
+yarn add nprogress
+# 类型声明，或者添加一个包含 `declare module 'nprogress'
+yarn add @types/nprogress --dev
+```
+
+新增service文件夹，service下新增http.ts文件以及api文件夹，其中http.ts用来axios封装
+
+```
+//http.ts
+import axios, { AxiosRequestConfig } from 'axios'
+import NProgress from 'nprogress'
+
+// 设置请求头和请求路径
+axios.defaults.baseURL = '/api'
+axios.defaults.timeout = 10000
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'
+axios.interceptors.request.use(
+  (config): AxiosRequestConfig<any> => {
+    const token = window.sessionStorage.getItem('token')
+    if (token) {
+      //@ts-ignore
+      config.headers.token = token
+    }
+    return config
+  },
+  (error) => {
+    return error
+  }
+)
+// 响应拦截
+axios.interceptors.response.use((res) => {
+  if (res.data.code === 111) {
+    sessionStorage.setItem('token', '')
+    // token过期操作
+  }
+  return res
+})
+
+interface ResType<T> {
+  code: number
+  data?: T
+  msg: string
+  err?: string
+}
+interface Http {
+  get<T>(url: string, params?: unknown): Promise<ResType<T>>
+  post<T>(url: string, params?: unknown): Promise<ResType<T>>
+  upload<T>(url: string, params: unknown): Promise<ResType<T>>
+  download(url: string): void
+}
+
+const http: Http = {
+  get(url, params) {
+    return new Promise((resolve, reject) => {
+      NProgress.start()
+      axios
+        .get(url, { params })
+        .then((res) => {
+          NProgress.done()
+          resolve(res.data)
+        })
+        .catch((err) => {
+          NProgress.done()
+          reject(err.data)
+        })
+    })
+  },
+  post(url, params) {
+    return new Promise((resolve, reject) => {
+      NProgress.start()
+      axios
+        .post(url, JSON.stringify(params))
+        .then((res) => {
+          NProgress.done()
+          resolve(res.data)
+        })
+        .catch((err) => {
+          NProgress.done()
+          reject(err.data)
+        })
+    })
+  },
+  upload(url, file) {
+    return new Promise((resolve, reject) => {
+      NProgress.start()
+      axios
+        .post(url, file, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
+        .then((res) => {
+          NProgress.done()
+          resolve(res.data)
+        })
+        .catch((err) => {
+          NProgress.done()
+          reject(err.data)
+        })
+    })
+  },
+  download(url) {
+    const iframe = document.createElement('iframe')
+    iframe.style.display = 'none'
+    iframe.src = url
+    iframe.onload = function () {
+      document.body.removeChild(iframe)
+    }
+    document.body.appendChild(iframe)
+  },
+}
+export default http
+```
+
+## 状态管理 pinia
+
+[官方文档](https://pinia.vuejs.org/)
+
+```
+# 安装
+yarn add pinia@next
+```
+
+main.ts 中增加
+
+```
+# 引入
+import { createPinia } from "pinia"
+# 创建根存储库并将其传递给应用程序
+app.use(createPinia())
+```
+
+创建store文件夹，在里面可以定义你需要的store,比如说保存用户信息的useeDataStore.ts
+
+```
+import { defineStore } from 'pinia'
+
+export const userDataStore = defineStore('userData', {
+  state: () => {
+    return { userId: 0 }
+  },
+  // could also be defined as
+  // state: () => ({ count: 0 })
+  actions: {
+    
+  },
+  getters: {
+    
+  },
+})
+```
+
+更多详细自己看官方文档，反正用起来就是很舒服
+
+#### 自动导入
+
+我在想要不要加这一部分，我感觉如果加的话是可以少些一些代码，也不用一点一点地找路径去导入，但是有一个不太好的地方就是在看代码找相应的变量的时候哪些变量是引入，哪些变量是当前文件定义的就会比较难区分，增加了代码阅读的阻碍，我比较想有的一个功能是在你只管写，而不用自己去写import语句，写了变量之后会给你自己写import，不知道有没有这个功能，等无聊了再看吧。。。。。
+
