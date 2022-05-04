@@ -1,17 +1,8 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <ProgressBar />
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
-export default defineComponent({
-  name: 'App',
-  components: {
-    HelloWorld,
-  },
-})
+<script lang="ts" setup>
+import { ProgressBar } from '@/components/index'
 </script>
 <style>
 #app {
@@ -20,6 +11,12 @@ export default defineComponent({
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: #2c3e50;
   margin-top: 60px;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
