@@ -1,8 +1,8 @@
 <template>
-  <ProgressBar />
+  <ToolTips />
 </template>
 <script lang="ts" setup>
-import { ProgressBar } from '@/components/index'
+import { ToolTips } from '@/components/index'
 </script>
 <style>
 #app {
