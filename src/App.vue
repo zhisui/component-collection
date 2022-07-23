@@ -1,8 +1,8 @@
 <template>
-  <ToolTips />
+  <Test />
 </template>
 <script lang="ts" setup>
-import { ToolTips } from '@/components/index'
+import { Test } from '@/components/index'
 </script>
 <style>
 #app {
@@ -12,9 +12,6 @@ import { ToolTips } from '@/components/index'
   text-align: center;
   color: #2c3e50;
   background-color: #2c3e50;
-  margin-top: 60px;
-  width: 200px;
-  height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -38,6 +38,7 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     'no-var': 'error',
     'prettier/prettier': 'error',
+    'vue/multi-word-component-names': 'off',
     // 禁止出现console
     'no-console': 'warn',
     // 禁用debugger

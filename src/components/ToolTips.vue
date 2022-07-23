@@ -12,12 +12,10 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 <style lang="scss" scoped>
 .tooltip {
-    width:12px;
-    height:12px;
-    border-radius:50%;
-    background-color:red;
-    color:#fff;
-}
-
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: red;
+  color: #fff;
 }
 </style>

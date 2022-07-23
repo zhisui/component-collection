@@ -1,3 +1,11 @@
 $test-color1: pink;
 $test-color2: skyblue;
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
