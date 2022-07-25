@@ -1,14 +1,13 @@
 <template>
-  <div class="container">
-    <div class="item">1</div>
-    <div class="item">2</div>
-    <p>hellow</p>
-    <div class="item">3</div>
-  </div>
+    <div class="container">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <p>hellow</p>
+        <div class="item">3</div>
+    </div>
 </template>
 
 <script></script>
-
 <style lang="scss" scoped>
 /*
 这个例子主要是用来理解
@@ -32,31 +31,31 @@ nth-type-of()是以同类元素作为计算依据的
  */
 
 .container {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  p {
-    height: 200px;
-    background-color: aquamarine;
-    flex: 1;
-    &:nth-child(3) {
-      background-color: aliceblue;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    p {
+        height: 200px;
+        background-color: aquamarine;
+        flex: 1;
+        &:nth-child(3) {
+            background-color: aliceblue;
+        }
     }
-  }
-  .item {
-    flex: 1;
-    // background-clip: content-box;
-    margin-right: 10px;
-    height: 200px;
-    background-color: lightblue;
-    &:nth-child(3) {
-      background-color: lightpink;
+    .item {
+        flex: 1;
+        // background-clip: content-box;
+        margin-right: 10px;
+        height: 200px;
+        background-color: lightblue;
+        &:nth-child(3) {
+            background-color: lightpink;
+        }
+        &:last-child {
+            margin-right: 0;
+        }
     }
-    &:last-child {
-      margin-right: 0;
-    }
-  }
 }
 </style>
