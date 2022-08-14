@@ -1,8 +1,8 @@
 <template>
-    <Experince />
+    <Father />
 </template>
 <script lang="ts" setup>
-import { Experince } from '@/components/index'
+import Father from '@/components/TransferValue/Father.vue'
 </script>
 <style>
 #app {
@@ -10,7 +10,7 @@ import { Experince } from '@/components/index'
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
+    color: #fff;
     background-color: #2c3e50;
     display: flex;
     justify-content: center;
